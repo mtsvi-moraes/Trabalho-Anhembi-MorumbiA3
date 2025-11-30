@@ -29,14 +29,14 @@ function App() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: BackendMusica[] = await res.json();
 
-      // Map backend Musica -> UI Track
       const mapped: Track[] = data.map((m) => ({
         id: String(m.id),
         title: m.titulo,
         artist: m.artista,
         album: m.album,
-        duration: 180, // default duration for UI
+        duration: 180,
         created_at: new Date().toISOString(),
+        src: `${BACKEND_URL}/audios/${m.nomeArquivo}`, // Spring Boot serves classpath:/static/** at /**
       }));
 
       setTracks(mapped);

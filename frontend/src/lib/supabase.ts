@@ -12,4 +12,5 @@ export interface Track {
   album: string;
   duration: number;
   created_at: string;
+  src?: string; 
 }

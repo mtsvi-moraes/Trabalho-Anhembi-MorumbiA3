@@ -1,5 +1,6 @@
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { Track } from '../lib/supabase';
+import { useEffect, useRef } from 'react';
 
 interface MusicPlayerProps {
   currentTrack: Track | null;
@@ -22,12 +23,37 @@ export default function MusicPlayer({
   onNext,
   onPrevious,
 }: MusicPlayerProps) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (!currentTrack?.src) return;
+    if (!audioRef.current) return;
+
+    audioRef.current.src = currentTrack.src;
+    audioRef.current.load();
+
+    // Autoplay when selecting a new track
+    if (isPlaying) {
+      audioRef.current.play().catch(() => {/* ignore */});
+    }
+  }, [currentTrack]);
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.play().catch(() => {/* ignore */});
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
   if (!currentTrack) {
     return null;
   }
 
   return (
     <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white p-8 rounded-2xl shadow-2xl">
+      <audio ref={audioRef} onEnded={onNext} />
       <div className="flex items-center justify-between mb-8">
         <div className="flex-1">
           <h2 className="text-3xl font-bold mb-2">{currentTrack.title}</h2>
