@@ -1,4 +1,4 @@
-import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Shuffle } from 'lucide-react';
 import { Track } from '../lib/supabase';
 import { useEffect, useRef } from 'react';
 
@@ -8,6 +8,7 @@ interface MusicPlayerProps {
   onPlayPause: () => void;
   onNext: () => void;
   onPrevious: () => void;
+  onRandom: () => void; // NEW
 }
 
 function formatDuration(seconds: number): string {
@@ -22,6 +23,7 @@ export default function MusicPlayer({
   onPlayPause,
   onNext,
   onPrevious,
+  onRandom, // NEW
 }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -86,6 +88,16 @@ export default function MusicPlayer({
           className="p-4 bg-blue-700 hover:bg-blue-600 rounded-full transition-all duration-200 hover:scale-110"
         >
           <SkipForward size={24} />
+        </button>
+
+        {/* Random button */}
+        <button
+          onClick={onRandom}
+          className="p-4 bg-blue-700 hover:bg-blue-600 rounded-full transition-all duration-200 hover:scale-110"
+          aria-label="Random"
+          title="Random"
+        >
+          <Shuffle size={24} />
         </button>
       </div>
     </div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class MusicService {
@@ -85,6 +86,15 @@ public class MusicService {
     public Musica setAtual(int id) {
         Musica m = playlist.buscar(id);
         if (m != null) currentId = id;
+        return m;
+    }
+
+    public Musica random() {
+        List<Musica> todas = playlist.listarTodas();
+        if (todas.isEmpty()) return null;
+        int idx = ThreadLocalRandom.current().nextInt(todas.size());
+        Musica m = todas.get(idx);
+        currentId = m.getId();
         return m;
     }
 }

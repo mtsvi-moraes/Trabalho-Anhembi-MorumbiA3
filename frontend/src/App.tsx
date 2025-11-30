@@ -94,6 +94,21 @@ function App() {
     }
   };
 
+  const handleRandom = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/random`, { method: 'POST' });
+      if (!res.ok) return;
+      const m: BackendMusica = await res.json();
+      const idx = tracks.findIndex((t) => t.id === String(m.id));
+      if (idx >= 0) {
+        setCurrentTrackIndex(idx);
+        setIsPlaying(true);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
   const handleTrackSelect = async (track: Track) => {
     try {
       await fetch(`${BACKEND_URL}/api/play/${track.id}`, { method: 'POST' });
@@ -136,6 +151,7 @@ function App() {
               onPlayPause={handlePlayPause}
               onNext={handleNext}
               onPrevious={handlePrevious}
+              onRandom={handleRandom} // NEW
             />
           </div>
 

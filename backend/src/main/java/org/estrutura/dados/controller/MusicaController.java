@@ -67,4 +67,11 @@ public class MusicaController {
         musicService.removerMusica(id);
         System.out.println("Música removida ID: " + id);
     }
+
+    // 8. POST: Música aleatória
+    // URL: http://localhost:8080/api/random
+    @PostMapping("/random")
+    public Musica random() {
+        return musicService.random();
+    }
 }
