@@ -13,10 +13,15 @@ import java.util.List;
 public class MusicService {
 
     private final ListaEncadeada playlist = new ListaEncadeada();
+    private Integer currentId = null;
 
     // Construtor: Agora chama o scanner automático
     public MusicService() {
         carregarAudiosDaPasta();
+        Musica primeira = playlist.primeira();
+        if (primeira != null) {
+            currentId = primeira.getId();
+        }
     }
 
     private void carregarAudiosDaPasta() {
@@ -59,5 +64,27 @@ public class MusicService {
 
     public void removerMusica(int id) {
         playlist.remover(id);
+    }
+
+    public Musica atual() {
+        return (currentId != null) ? playlist.buscar(currentId) : playlist.primeira();
+    }
+
+    public Musica proxima() {
+        Musica prox = (currentId == null) ? playlist.primeira() : playlist.proxima(currentId);
+        if (prox != null) currentId = prox.getId();
+        return prox;
+    }
+
+    public Musica anterior() {
+        Musica ant = (currentId == null) ? playlist.primeira() : playlist.anterior(currentId);
+        if (ant != null) currentId = ant.getId();
+        return ant;
+    }
+
+    public Musica setAtual(int id) {
+        Musica m = playlist.buscar(id);
+        if (m != null) currentId = id;
+        return m;
     }
 }

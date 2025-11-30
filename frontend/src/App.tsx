@@ -23,6 +23,13 @@ function App() {
     fetchTracks();
   }, []);
 
+  useEffect(() => {
+    // Sync current selection from backend once tracks are loaded
+    if (tracks.length > 0) {
+      syncCurrentWithBackend();
+    }
+  }, [tracks]);
+
   async function fetchTracks() {
     try {
       const res = await fetch(`${BACKEND_URL}/api/playlist`);
@@ -47,25 +54,56 @@ function App() {
     }
   }
 
+  async function syncCurrentWithBackend() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/current`);
+      if (!res.ok) return;
+      const m: BackendMusica = await res.json();
+      const idx = tracks.findIndex((t) => t.id === String(m.id));
+      if (idx >= 0) setCurrentTrackIndex(idx);
+    } catch {
+      // ignore
+    }
+  }
+
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleNext = () => {
-    if (tracks.length === 0) return;
-    setCurrentTrackIndex((prev) => (prev + 1) % tracks.length);
+  const handleNext = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/next`, { method: 'POST' });
+      if (!res.ok) return;
+      const m: BackendMusica = await res.json();
+      const idx = tracks.findIndex((t) => t.id === String(m.id));
+      if (idx >= 0) setCurrentTrackIndex(idx);
+    } catch {
+      // ignore
+    }
   };
 
-  const handlePrevious = () => {
-    if (tracks.length === 0) return;
-    setCurrentTrackIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
+  const handlePrevious = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/previous`, { method: 'POST' });
+      if (!res.ok) return;
+      const m: BackendMusica = await res.json();
+      const idx = tracks.findIndex((t) => t.id === String(m.id));
+      if (idx >= 0) setCurrentTrackIndex(idx);
+    } catch {
+      // ignore
+    }
   };
 
-  const handleTrackSelect = (track: Track) => {
-    const index = tracks.findIndex((t) => t.id === track.id);
-    if (index !== -1) {
-      setCurrentTrackIndex(index);
-      setIsPlaying(true);
+  const handleTrackSelect = async (track: Track) => {
+    try {
+      await fetch(`${BACKEND_URL}/api/play/${track.id}`, { method: 'POST' });
+      const index = tracks.findIndex((t) => t.id === track.id);
+      if (index !== -1) {
+        setCurrentTrackIndex(index);
+        setIsPlaying(true);
+      }
+    } catch {
+      // ignore
     }
   };
 
