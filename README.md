@@ -221,6 +221,6 @@ Frontend: [`src/App.tsx`](frontend/src/App.tsx), [`src/components/MusicPlayer.ts
 | Leonardo Ramos dos Santos           | 1252313846  |
 | Luan Gonçalves Spera                | 1252322579  |
 | Matheus Vinicius Inagaki Moraes     | 12523220249 |
-| Yam Mombeli de Carvalho             | 1252328669  |
+| Yan Mombeli de Carvalho             | 1252328669  |
 
 
