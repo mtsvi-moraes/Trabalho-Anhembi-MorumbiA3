@@ -211,8 +211,9 @@ Gerenciar chaves e direitos dos áudios.
 Backend: [`org.estrutura.dados.A3Application`](backend/src/main/java/org/estrutura/dados/A3Application.java), [`org.estrutura.dados.service.MusicService`](backend/src/main/java/org/estrutura/dados/service/MusicService.java), [`org.estrutura.dados.structures.ListaEncadeada`](backend/src/main/java/org/estrutura/dados/structures/ListaEncadeada.java)  
 Frontend: [`src/App.tsx`](frontend/src/App.tsx), [`src/components/MusicPlayer.tsx`](frontend/src/components/MusicPlayer.tsx), [`src/components/TrackList.tsx`](frontend/src/components/TrackList.tsx)
 
+---
 
-Desenvolvido por:
+## Desenvolvido por:
 
 | Nome                                | R.A         |
 |-------------------------------------|-------------|
