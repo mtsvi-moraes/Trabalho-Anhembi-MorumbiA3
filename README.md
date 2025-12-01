@@ -214,12 +214,11 @@ Frontend: [`src/App.tsx`](frontend/src/App.tsx), [`src/components/MusicPlayer.ts
 
 Desenvolvido por:
 
-------------------------------------------------
-Nome                                | R.A       |
-Guilherme P Vale                    |1252327540 |
-Leonardo Ramos dos Santos           |1252313846 |
-Luan Gonçalves Spera                |1252322579 |
-Matheus Vinicius Inagaki Moraes     |12523220249|
--------------------------------------------------
+| Nome                                | R.A         |
+|-------------------------------------|-------------|
+| Guilherme P Vale                    | 1252327540  |
+| Leonardo Ramos dos Santos           | 1252313846  |
+| Luan Gonçalves Spera                | 1252322579  |
+| Matheus Vinicius Inagaki Moraes     | 12523220249 |
 
 
